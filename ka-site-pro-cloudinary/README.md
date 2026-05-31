@@ -1,31 +1,16 @@
-# Site vitrine KA — Vercel + Cloudinary
+# Site vitrine Kaya Ahmet
 
-Site professionnel pour KA : terrasse bois, dalle sur plot et aménagements extérieurs.
+Application HTML5 React/Vite hébergée sur Vercel, avec galerie Cloudinary automatique.
 
-## Fonctionnement des photos automatiques
+## Architecture
 
-Le site lit automatiquement les images Cloudinary via `/api/gallery`.
+- `src/main.jsx` : application React, navigation, hero, services, galerie, contact email et sections SEO locales.
+- `src/styles.css` : design responsive mobile-first, charte noir/orange/blanc inspiree des visuels KA.
+- `api/gallery.js` : fonction Vercel qui lit les images Cloudinary du dossier `ka-realisations`, applique les transformations et renvoie toutes les photos paginées.
+- `index.html` : métadonnées SEO, Open Graph et données structurées LocalBusiness.
+- `vercel.json` : configuration Vite et cache de l'API galerie.
 
-Deux méthodes possibles :
-
-### Méthode recommandée : dossier Cloudinary
-1. Crée un dossier Cloudinary nommé : `ka-realisations`
-2. Ajoute tes photos dedans.
-3. Le site affichera automatiquement les images du dossier.
-
-### Catégorisation automatique
-Le site classe les photos selon le nom du fichier ou les tags :
-- `bois` ou `terrasse-bois` → Terrasse bois
-- `dalle` ou `plot` → Dalle sur plot
-- `piscine` → Contour piscine
-- `avant`, `apres`, `before`, `after` → Avant / Après
-
-Exemples de noms propres :
-- `ka-realisations/terrasse-bois-villa-lyon-01`
-- `ka-realisations/dalle-sur-plot-piscine-01`
-- `ka-realisations/avant-apres-terrasse-01`
-
-## Variables d'environnement à mettre sur Vercel
+## Variables d'environnement Vercel
 
 Dans Vercel > Project > Settings > Environment Variables :
 
@@ -35,45 +20,46 @@ CLOUDINARY_API_KEY=ta_api_key
 CLOUDINARY_API_SECRET=ton_api_secret
 CLOUDINARY_FOLDER=ka-realisations
 CLOUDINARY_TAG=
+CLOUDINARY_MAX_ASSETS=500
 ```
 
-## Lancer en local
+`CLOUDINARY_TAG` est optionnel. Si la variable est vide, le site utilise le dossier `ka-realisations`.
+
+## Galerie Cloudinary
+
+Le site affiche toutes les images trouvées dans `ka-realisations`, jusqu'à `CLOUDINARY_MAX_ASSETS`.
+
+La categorie est detectee avec le nom du fichier ou les tags :
+
+- `bois`, `wood`, `terrasse-bois` -> Terrasse bois
+- `dalle`, `plot`, `slab` -> Dalle sur plot
+- `terrassement`, `terrain` -> Terrassement
+- `piscine`, `pool` -> Contour piscine
+- `avant`, `apres`, `before`, `after` -> Avant / Apres
+
+## Contact
+
+Le formulaire valide les champs puis prépare un email vers `kaya42dalle@gmail.com` avec `mailto:`.
+
+Pour un vrai envoi serveur sans ouvrir le client mail de l'utilisateur, il faut ajouter un fournisseur email transactionnel comme Resend, SendGrid ou SMTP.
+
+## Lancement local
 
 ```bash
 npm install
 npm run dev
 ```
 
-La galerie Cloudinary fonctionne surtout en production Vercel, car elle utilise `/api/gallery`.
-
-## Déployer sur Vercel
-
-### Option simple via GitHub
-1. Dézippe ce dossier.
-2. Crée un dépôt GitHub.
-3. Envoie tous les fichiers sur GitHub.
-4. Va sur Vercel > Add New > Project.
-5. Importe ton dépôt.
-6. Vercel détecte Vite.
-7. Vérifie :
-   - Build Command : `npm run build`
-   - Output Directory : `dist`
-8. Ajoute les variables Cloudinary.
-9. Clique Deploy.
-
-### Option en ligne de commande
+## Build production
 
 ```bash
-npm install
 npm run build
-npm i -g vercel
-vercel --prod
 ```
 
-## Contact configuré
+## Déploiement Vercel
 
-- Téléphone : 06 13 54 14 47
-- Téléphone 2 : 06 19 28 40 55
-- Email : kaya42dalle@gmail.com
-- Zone : Lyon et alentours
-- SIRET : 895 342 665 00018
+- Build Command : `npm run build`
+- Output Directory : `dist`
+- Framework : Vite
+
+Le déploiement GitHub -> Vercel redéploie automatiquement la home après push sur la branche configurée.
