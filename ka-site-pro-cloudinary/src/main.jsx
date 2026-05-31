@@ -181,21 +181,9 @@ function useGallery() {
 
 function LogoMark() {
   return (
-    <svg className="logoMark" viewBox="0 0 98 76" aria-hidden="true">
-      <path
-        d="M10 8h15v25L49 8h20L39 39l32 29H50L25 45v23H10V8Z"
-        fill="#f7f7f7"
-      />
-      <path
-        d="M67 8h18v60H70V41L51 68H34L67 8Z"
-        fill="#f49a12"
-      />
-      <path d="M69 30 55 55h14V30Z" fill="#101417" opacity=".88" />
-      <path
-        d="M23 69h20l-9 7H14l9-7ZM72 69h17l-8 7H64l8-7Z"
-        fill="#f49a12"
-      />
-    </svg>
+    <span className="logoMarkFrame" aria-hidden="true">
+      <img className="logoMark" src="/ka-logo-header.png" alt="" />
+    </span>
   );
 }
 

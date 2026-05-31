@@ -79,9 +79,12 @@ section {
   grid-template-columns: 1fr auto;
   align-items: center;
   min-height: 76px;
-  padding: 10px clamp(16px, 5vw, 116px);
-  background: rgba(8, 10, 12, 0.92);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px clamp(14px, 5vw, 116px);
+  background:
+    linear-gradient(180deg, rgba(8, 10, 12, 0.98), rgba(8, 10, 12, 0.93)),
+    radial-gradient(circle at 18% 0%, rgba(244, 154, 18, 0.16), transparent 26%);
+  border-bottom: 1px solid rgba(244, 154, 18, 0.26);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(18px);
 }
 
@@ -92,7 +95,7 @@ section {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 13px;
   min-width: 0;
 }
 
@@ -100,23 +103,53 @@ section {
   gap: 0;
 }
 
-.logoMark {
-  width: 56px;
-  height: auto;
+.logoMarkFrame {
+  position: relative;
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
   flex: 0 0 auto;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+  overflow: hidden;
+  padding: 2px;
+  background:
+    radial-gradient(circle at 66% 52%, rgba(244, 154, 18, 0.34), transparent 38%),
+    linear-gradient(90deg, #c8cbca 0%, #595f5f 22%, #151819 52%, #6e6760 74%, #d5d7d6 100%);
+  border: 1px solid rgba(244, 154, 18, 0.34);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 22px rgba(255, 255, 255, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.34),
+    0 0 22px rgba(244, 154, 18, 0.12);
+}
+
+.logoMarkFrame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 34%, rgba(244, 154, 18, 0.08));
+}
+
+.logoMark {
+  width: 94%;
+  height: 94%;
+  flex: 0 0 auto;
+  object-fit: contain;
+  transform: scale(1.04);
+  filter: contrast(1.12) saturate(1.1);
 }
 
 .brandText {
   display: grid;
-  gap: 2px;
+  gap: 4px;
   min-width: 0;
   text-transform: uppercase;
 }
 
 .brandText strong {
   color: #fff;
-  font-size: clamp(18px, 4.8vw, 30px);
+  font-size: clamp(18px, 4.8vw, 29px);
   font-weight: 950;
   line-height: 1;
   white-space: nowrap;
@@ -130,7 +163,7 @@ section {
   color: #fff;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1.7px;
+  letter-spacing: 1.5px;
   opacity: 0.9;
   white-space: nowrap;
 }
@@ -154,6 +187,10 @@ section {
   font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.mainNav a:first-child {
+  color: var(--orange);
 }
 
 .mainNav a:hover,
@@ -346,7 +383,13 @@ section {
 }
 
 .quoteRibbon .logoMark {
-  width: 44px;
+  transform: scale(1.08);
+}
+
+.quoteRibbon .logoMarkFrame {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
 }
 
 .quoteRibbon strong,
@@ -1062,39 +1105,6 @@ section {
 }
 
 @media (min-width: 820px) {
-  .siteHeader {
-    grid-template-columns: auto 1fr auto;
-    min-height: 86px;
-    gap: 30px;
-  }
-
-  .mainNav {
-    position: static;
-    display: flex;
-    justify-content: center;
-    gap: clamp(16px, 2.5vw, 34px);
-    padding: 0;
-    background: transparent;
-    border-bottom: 0;
-  }
-
-  .menuButton {
-    display: none;
-  }
-
-  .headerCall {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 48px;
-    padding: 0 18px;
-    color: #111;
-    background: linear-gradient(135deg, var(--orange), var(--orange-2));
-    border-radius: 4px;
-    font-weight: 950;
-  }
-
   .hero {
     min-height: 720px;
     padding-top: 142px;
@@ -1240,9 +1250,64 @@ section {
   }
 }
 
+@media (min-width: 1120px) {
+  .siteHeader {
+    grid-template-columns: auto 1fr auto;
+    min-height: 92px;
+    gap: clamp(18px, 2vw, 34px);
+  }
+
+  .mainNav {
+    position: static;
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 1.4vw, 24px);
+    padding: 0;
+    background: transparent;
+    border-bottom: 0;
+  }
+
+  .mainNav a {
+    font-size: 12px;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .headerCall {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 20px;
+    color: #111;
+    background: linear-gradient(135deg, var(--orange), var(--orange-2));
+    border-radius: 4px;
+    font-weight: 950;
+    box-shadow: 0 14px 34px rgba(244, 154, 18, 0.22);
+  }
+
+  .hero {
+    min-height: 720px;
+    padding-top: 152px;
+  }
+}
+
 @media (min-width: 1180px) {
-  .logoMark {
-    width: 68px;
+  .logoMarkFrame {
+    width: 70px;
+    height: 70px;
+  }
+
+  .brandText strong {
+    font-size: 31px;
+  }
+
+  .brandText small {
+    font-size: 10px;
+    letter-spacing: 1.8px;
   }
 
   .hero {
@@ -1250,11 +1315,17 @@ section {
   }
 
   .hero h1 {
-    font-size: 88px;
+    font-size: 72px;
   }
 
   .galleryGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1360px) {
+  .hero h1 {
+    font-size: 88px;
   }
 }
 
